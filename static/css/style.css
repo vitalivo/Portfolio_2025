@@ -1,0 +1,350 @@
+/* Основные стили */
+:root {
+    --primary-color: #6d28d9;
+    --secondary-color: #3b82f6;
+    --dark-color: #1f2937;
+    --light-color: #f9fafb;
+    --gray-color: #6b7280;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    padding-top: 76px;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+/* Градиентный текст */
+.text-gradient {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Секции */
+section {
+    padding: 80px 0;
+}
+
+section h2 {
+    margin-bottom: 40px;
+    position: relative;
+    display: inline-block;
+}
+
+section h2:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+/* Герой-секция */
+.hero {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+    position: relative;
+    overflow: hidden;
+    min-height: calc(100vh - 76px);
+    display: flex;
+    align-items: center;
+}
+
+.hero:before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: 10%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(var(--primary-color), transparent 70%);
+    border-radius: 50%;
+    opacity: 0.2;
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero:after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: 15%;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(var(--secondary-color), transparent 70%);
+    border-radius: 50%;
+    opacity: 0.2;
+    animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.hero-image {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.hero-image:hover {
+    transform: translateY(-10px);
+}
+
+/* Кнопки */
+.btn-gradient {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-color));
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 10px 28px;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Карточки проектов */
+.project-card {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.project-image {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.1);
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-content {
+    padding: 20px;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.project-tag {
+    background: #f3f4f6;
+    color: var(--gray-color);
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+/* Навыки */
+.skill-card {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.skill-progress {
+    height: 8px;
+    border-radius: 4px;
+    background: #e9ecef;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.skill-progress-bar {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    transition: width 1s ease;
+}
+
+/* Сертификаты */
+.certificate-card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.certificate-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.certificate-image {
+    height: 150px;
+    overflow: hidden;
+}
+
+.certificate-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.certificate-card:hover .certificate-image img {
+    transform: scale(1.1);
+}
+
+.certificate-content {
+    padding: 15px;
+}
+
+.certificate-issuer {
+    color: var(--primary-color);
+    font-size: 0.85rem;
+}
+
+.certificate-date {
+    color: var(--gray-color);
+    font-size: 0.75rem;
+}
+
+/* Контактная форма */
+.contact-form {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.contact-info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: white;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    section {
+        padding: 60px 0;
+    }
+}
+
+
+/* Кнопка "Наверх" */
+.btn-back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;      /* Центрирование по вертикали */
+    justify-content: center;  /* Центрирование по горизонтали */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    padding: 0;               /* Убираем отступы внутри кнопки */
+}
+
+.btn-back-to-top i {
+    margin: 0;                /* Убираем отступы у иконки */
+    line-height: 1;           /* Устанавливаем высоту строки */
+}
+
+.btn-back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+}

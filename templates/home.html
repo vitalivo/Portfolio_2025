@@ -1,0 +1,291 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!-- Герой-секция -->
+<section id="home" class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 hero-content">
+                <h1>Full-Stack <span class="text-gradient">Разработчик</span></h1>
+                <p class="lead mb-4">Я создаю современные веб-приложения с использованием Django, React и Java</p>
+                <div class="d-flex gap-3">
+                    <a href="#projects" class="btn btn-gradient">Мои проекты</a>
+                    <a href="#" class="btn btn-outline">Скачать резюме</a>
+                </div>
+                <div class="mt-4 d-flex gap-3">
+                    <a href="https://github.com/vitalivo" target="_blank" class="text-dark">
+                        <i class="fab fa-github fa-2x"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/feed/" class="text-dark">
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    </a>
+                    <a href="mailto:vitalivo@gmail.com" class="text-dark">
+                        <i class="fas fa-envelope fa-2x"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="hero-image">
+                    <img src="{% static 'images/IMG_20250314_090324.jpg' %}" alt="Виталий" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- О себе -->
+<section id="about" class="bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="text-gradient">Обо мне</h2>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right" data-aos-delay="100">
+                <img src="{% static 'images/IMG_20240525_181743.jpg' %}" alt="Обо мне" class="img-fluid rounded-3 shadow">
+            </div>
+        <div class="col-lg-7" data-aos="fade-left" data-aos-delay="300">
+            <h3 class="mb-3">Full-Stack Разработчик</h3>
+                <p>Я увлеченный разработчик с опытом создания веб-приложений с использованием Python, Django, Html, Css, React и Java. Мне нравится решать сложные задачи и создавать интуитивно понятные, удобные интерфейсы.</p>
+                <p>Имея прочную основу как во фронтенд, так и в бэкенд технологиях, я могу разрабатывать полные решения от проектирования базы данных до реализации отзывчивого пользовательского интерфейса.</p>
+                <a href="#" class="btn btn-gradient mt-3">Узнать больше</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Проекты -->
+<section id="projects">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="text-gradient">Мои проекты</h2>
+        </div>
+        <div class="row g-4">
+            {% if projects %}
+                {% for project in projects %}
+                <div class="col-md-6">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                            <div class="project-overlay"></div>
+                        </div>
+                        <div class="project-content">
+                            <h4>{{ project.title }}</h4>
+                            <div class="project-tags">
+                                {% for tech in project.technologies.split|slice:":3" %}
+                                <span class="project-tag">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                            <p>{{ project.description|truncatechars:100 }}</p>
+                            <div class="d-flex gap-2 mt-3">
+    {% if project.demo_link and project.demo_link != "#" %}
+    <a href="{{ project.demo_link }}" target="_blank" class="btn btn-sm btn-outline">Демо</a>
+    {% endif %}
+    {% if project.code_link %}
+    <a href="{{ project.code_link }}" target="_blank" class="btn btn-sm btn-outline">
+        <i class="fab fa-github me-1"></i> Код
+    </a>
+    {% endif %}
+</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center">
+                    <p>Проекты пока не добавлены. Войдите в админ-панель, чтобы добавить проекты.</p>
+                </div>
+            {% endif %}
+        </div>
+        <div class="text-center mt-5">
+            <a href="#" class="btn btn-gradient">Все проекты</a>
+        </div>
+    </div>
+</section>
+
+<!-- Навыки -->
+<section id="skills" class="bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="text-gradient">Навыки и технологии</h2>
+        </div>
+        
+        <div class="mb-5">
+            <h3 class="mb-4 text-center">Языки программирования</h3>
+            <div class="row g-4">
+                {% if programming_languages %}
+                    {% for skill in programming_languages %}
+                    <div class="col-md-3 col-sm-6">
+                        <div class="skill-card">
+                            <h5>{{ skill.name }}</h5>
+                            <div class="skill-progress">
+                                <div class="skill-progress-bar" data-width="{{ skill.level }}"></div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <small class="text-muted">{{ skill.level }}%</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12 text-center">
+                        <p>Навыки пока не добавлены. Войдите в админ-панель, чтобы добавить навыки.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="mb-5">
+            <h3 class="mb-4 text-center">Фреймворки и библиотеки</h3>
+            <div class="row g-4">
+                {% if frameworks %}
+                    {% for skill in frameworks %}
+                    <div class="col-md-3 col-sm-6">
+                        <div class="skill-card">
+                            <h5>{{ skill.name }}</h5>
+                            <div class="skill-progress">
+                                <div class="skill-progress-bar" data-width="{{ skill.level }}"></div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <small class="text-muted">{{ skill.level }}%</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12 text-center">
+                        <p>Фреймворки пока не добавлены. Войдите в админ-панель, чтобы добавить навыки.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div>
+            <h3 class="mb-4 text-center">Инструменты и технологии</h3>
+            <div class="row g-4">
+                {% if tools %}
+                    {% for skill in tools %}
+                    <div class="col-md-3 col-sm-6">
+                        <div class="skill-card">
+                            <h5>{{ skill.name }}</h5>
+                            <div class="skill-progress">
+                                <div class="skill-progress-bar" data-width="{{ skill.level }}"></div>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <small class="text-muted">{{ skill.level }}%</small>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-12 text-center">
+                        <p>Инструменты пока не добавлены. Войдите в админ-панель, чтобы добавить навыки.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Сертификаты -->
+<section id="certificates">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="text-gradient">Сертификаты и курсы</h2>
+        </div>
+        <div class="row g-4">
+            {% if certificates %}
+                {% for certificate in certificates %}
+                <div class="col-lg-4 col-md-6">
+                    <div class="certificate-card">
+                        <div class="certificate-image">
+                            <img src="{{ certificate.image.url }}" alt="{{ certificate.name }}">
+                        </div>
+                        <div class="certificate-content">
+                            <h5>{{ certificate.name }}</h5>
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <span class="certificate-issuer">{{ certificate.issuer }}</span>
+                                <span class="certificate-date">{{ certificate.date }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center">
+                    <p>Сертификаты пока не добавлены. Войдите в админ-панель, чтобы добавить сертификаты.</p>
+                </div>
+            {% endif %}
+        </div>
+        <div class="text-center mt-5">
+            <a href="{% url 'certificates' %}" class="btn btn-outline">Все сертификаты</a>
+        </div>
+    </div>
+</section>
+
+<!-- Контакты -->
+<section id="contact" class="bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="text-gradient">Связаться со мной</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 mb-4 mb-lg-0">
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h5>Email</h5>
+                        <p>vitalivo@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div>
+                        <h5>Телефон</h5>
+                        <p>+972506457335</p>
+                    </div>
+                </div>
+                <div class="contact-info-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <h5>Местоположение</h5>
+                        <p>Город Петах Тиква</p>
+                        <p>Страна Израиль</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="contact-form">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                {{ form.name|as_crispy_field }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form.email|as_crispy_field }}
+                            </div>
+                            <div class="col-12">
+                                {{ form.subject|as_crispy_field }}
+                            </div>
+                            <div class="col-12">
+                                {{ form.message|as_crispy_field }}
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-gradient w-100">Отправить сообщение</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

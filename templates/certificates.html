@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Мои сертификаты{% endblock %}
+
+{% block content %}
+<section class="py-5 mt-5">
+    <div class="container">
+        <h1 class="text-center mb-5">Мои сертификаты</h1>
+        
+        <div class="row g-4">
+            {% if certificates %}
+                {% for certificate in certificates %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="certificate-card">
+                        <div class="certificate-image">
+                            <img src="{{ certificate.image.url }}" alt="{{ certificate.name }}">
+                        </div>
+                        <div class="certificate-content">
+                            <h5>{{ certificate.name }}</h5>
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <span class="certificate-issuer">{{ certificate.issuer }}</span>
+                                <span class="certificate-date">{{ certificate.date }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center">
+                    <p>Сертификаты пока не добавлены.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

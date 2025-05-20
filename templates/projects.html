@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Мои проекты{% endblock %}
+
+{% block content %}
+<section class="py-5 mt-5">
+    <div class="container">
+        <h1 class="text-center mb-5">Мои проекты</h1>
+        
+        <div class="row g-4">
+            {% if projects %}
+                {% for project in projects %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card">
+                        <div class="project-image">
+                            <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                            <div class="project-overlay"></div>
+                        </div>
+                        <div class="project-content">
+                            <h4>{{ project.title }}</h4>
+                            <div class="project-tags">
+                                {% for tech in project.technologies.split|slice:":3" %}
+                                <span class="project-tag">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                            <p>{{ project.description|truncatechars:100 }}</p>
+                            <div class="d-flex gap-2 mt-3">
+                                {% if project.demo_link %}
+                                <a href="{{ project.demo_link }}" target="_blank" class="btn btn-sm btn-outline">Демо</a>
+                                {% endif %}
+                                {% if project.code_link %}
+                                <a href="{{ project.code_link }}" target="_blank" class="btn btn-sm btn-outline">
+                                    <i class="fab fa-github me-1"></i> Код
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12 text-center">
+                    <p>Проекты пока не добавлены.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
