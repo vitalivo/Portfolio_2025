@@ -4,20 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Портфолио Виталия{% endblock %}</title>
+    
+    {% block meta_tags %}
+    <meta name="description" content="Портфолио разработчика - проекты, навыки и опыт">
+    <meta name="keywords" content="портфолио, разработчик, python, django, веб-разработка">
+    {% endblock %}
+    
+    <!-- Open Graph теги для соцсетей -->
+    {% block og_tags %}
+    <meta property="og:title" content="Портфолио разработчика">
+    <meta property="og:description" content="Портфолио разработчика - проекты, навыки и опыт">
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+    {% endblock %}
+    
+    <title>{% block title %}Портфолио{% endblock %}</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- AOS CSS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS - Animate On Scroll -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -26,40 +37,43 @@
 </head>
 <body>
     <!-- Навигация -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{% url 'home' %}">
-                <span class="text-gradient">Виталий</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand" href="{% url 'home' %}">Портфолио</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#home">Главная</a>
+                        <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Главная</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">Обо мне</a>
+                        <a class="nav-link {% if request.path == '/about/' %}active{% endif %}" href="{% url 'about' %}">Обо мне</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#projects">Проекты</a>
+                        <a class="nav-link {% if request.path == '/projects/' %}active{% endif %}" href="{% url 'projects' %}">Проекты</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#skills">Навыки</a>
+                        <a class="nav-link {% if request.path == '/certificates/' %}active{% endif %}" href="{% url 'certificates' %}">Сертификаты</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#certificates">Сертификаты</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Контакты</a>
+                        <a class="nav-link {% if request.path == '/contact/' %}active{% endif %}" href="{% url 'contact' %}">Контакты</a>
                     </li>
                 </ul>
+                <div class="ms-3 d-flex align-items-center">
+                    <div class="theme-toggle">
+                        <button id="theme-toggle-btn" class="btn btn-sm btn-outline-secondary">
+                            <i class="fas fa-moon dark-icon"></i>
+                            <i class="fas fa-sun light-icon d-none"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Основной контент -->
+    <!-- Основное содержимое -->
     <main>
         {% if messages %}
             <div class="container mt-5 pt-3">
@@ -76,49 +90,97 @@
     </main>
 
     <!-- Футер -->
-    <footer class="bg-dark text-white py-4">
+    <footer class="footer py-5 bg-dark text-white">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
-                    <h5 class="text-gradient">Виталий</h5>
-                    <p>Full-Stack разработчик</p>
+                <div class="col-md-4">
+                    <h5>Портфолио</h5>
+                    <p>Веб-разработчик с опытом в создании современных веб-приложений.</p>
                 </div>
-                <div class="col-md-6 text-md-end">
-                    <div class="social-links">
-                        <a href="https://github.com/vitalivo" target="_blank" class="text-white me-3">
-                            <i class="fab fa-github fa-lg"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/feed/" class="text-white me-3">
-                            <i class="fab fa-linkedin fa-lg"></i>
-                        </a>
-                        <a href="mailto:vitalivo@gmail.com" class="text-white">
-                            <i class="fas fa-envelope fa-lg"></i>
-                        </a>
-                    </div>
-                    <p class="mt-2">© {% now "Y" %} Все права защищены</p>
+                <div class="col-md-4">
+                    <h5>Ссылки</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{% url 'home' %}" class="text-white">Главная</a></li>
+                        <li><a href="{% url 'about' %}" class="text-white">Обо мне</a></li>
+                        <li><a href="{% url 'projects' %}" class="text-white">Проекты</a></li>
+                        <li><a href="{% url 'certificates' %}" class="text-white">Сертификаты</a></li>
+                        <li><a href="{% url 'contact' %}" class="text-white">Контакты</a></li>
+                    </ul>
                 </div>
+                <div class="col-md-4">
+                    <h5>Контакты</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i> email@example.com</li>
+                        <li><i class="fas fa-phone me-2"></i> +7 (123) 456-78-90</li>
+                        <li class="mt-3">
+                            <a href="https://github.com/vitalivo" target="_blank" class="text-white me-3"><i class="fab fa-github fa-lg"></i></a>
+                            <a href="#" target="_blank" class="text-white me-3"><i class="fab fa-linkedin fa-lg"></i></a>
+                            <a href="#" target="_blank" class="text-white me-3"><i class="fab fa-telegram fa-lg"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p>&copy; {% now "Y" %} Портфолио. Все права защищены.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Модальное окно предпросмотра проекта -->
+    <div class="modal fade" id="projectPreviewModal" tabindex="-1" aria-labelledby="projectPreviewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="projectPreviewModalLabel">Предпросмотр проекта</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="previewImage" src="/placeholder.svg" alt="" class="img-fluid rounded mb-3">
+                        </div>
+                        <div class="col-md-6">
+                            <h4 id="previewTitle"></h4>
+                            <p id="previewDescription" class="text-muted"></p>
+                            <div class="mb-3">
+                                <h6>Технологии:</h6>
+                                <div id="previewTechnologies" class="d-flex flex-wrap gap-2"></div>
+                            </div>
+                            <div class="mb-3">
+                                <h6>Категория:</h6>
+                                <span id="previewCategory" class="badge bg-secondary"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a id="previewDemoLink" href="#" target="_blank" class="btn btn-primary">Демо</a>
+                    <a id="previewCodeLink" href="#" target="_blank" class="btn btn-outline-secondary">Код</a>
+                    <a id="previewDetailLink" href="#" class="btn btn-outline-primary">Подробнее</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({
-            duration: 800,
-            once: true
-        });
-    </script>
+    
+    <!-- AOS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     
     <!-- Custom JS -->
     <script src="{% static 'js/main.js' %}"></script>
     
+    <script>
+        // Инициализация AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+    </script>
+    
     {% block extra_js %}{% endblock %}
-    <!-- Кнопка "Наверх" -->
-    <button id="back-to-top" class="btn btn-gradient btn-back-to-top">
-    <i class="fas fa-arrow-up"></i>
-    </button>
 </body>
 </html>

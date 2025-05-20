@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block title %}Портфолио - Обо мне{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h1 class="section-title text-gradient">Обо мне</h1>
+            <p class="lead">Узнайте больше о моем опыте и навыках</p>
+        </div>
+        
+        <div class="row align-items-center mb-5">
+            <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right">
+                <img src="#" alt="About Me" class="img-fluid rounded-3 shadow">
+            </div>
+            <div class="col-lg-7" data-aos="fade-left">
+                <h2 class="mb-3">Виталий</h2>
+                <h4 class="text-primary mb-3">Full-Stack разработчик</h4>
+                <p>Я разработчик с опытом создания веб-приложений с использованием современных технологий. Мой основной стек включает Python, Django, JavaScript и React.</p>
+                <p>Я стремлюсь создавать эффективные, масштабируемые и удобные для пользователя приложения, уделяя особое внимание деталям и производительности.</p>
+                <p>Мой подход к разработке основан на глубоком понимании потребностей пользователей и бизнес-целей проекта. Я верю, что хороший код должен быть не только функциональным, но и читаемым, поддерживаемым и масштабируемым.</p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><strong>Имя:</strong> Виталий</li>
+                            <li class="mb-2"><strong>Email:</strong> email@example.com</li>
+                            <li class="mb-2"><strong>Телефон:</strong> +7 (123) 456-78-90</li>
+                            <li class="mb-2"><strong>Город:</strong> Город, Страна</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><strong>Возраст:</strong> 30</li>
+                            <li class="mb-2"><strong>Опыт:</strong> 5+ лет</li>
+                            <li class="mb-2"><strong>Степень:</strong> Бакалавр компьютерных наук</li>
+                            <li class="mb-2"><strong>Фриланс:</strong> Доступен</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <a href="#" class="btn btn-gradient">Скачать CV</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-5">
+            <div class="col-lg-6" data-aos="fade-right">
+                <h3 class="mb-4">Образование</h3>
+                <div class="timeline">
+                    <div class="timeline-item mb-4 p-4 card shadow-sm">
+                        <h4>Бакалавр компьютерных наук</h4>
+                        <p class="text-primary mb-2">2015 - 2019</p>
+                        <p class="mb-0">Университет</p>
+                        <p class="text-muted">Изучал алгоритмы, структуры данных, программирование и веб-разработку.</p>
+                    </div>
+                    
+                    <div class="timeline-item mb-4 p-4 card shadow-sm">
+                        <h4>Курс по веб-разработке</h4>
+                        <p class="text-primary mb-2">2019</p>
+                        <p class="mb-0">Онлайн-платформа</p>
+                        <p class="text-muted">Изучал современные технологии веб-разработки, включая HTML, CSS, JavaScript и React.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6" data-aos="fade-left">
+                <h3 class="mb-4">Опыт работы</h3>
+                <div class="timeline">
+                    <div class="timeline-item mb-4 p-4 card shadow-sm">
+                        <h4>Full-Stack разработчик</h4>
+                        <p class="text-primary mb-2">2020 - настоящее время</p>
+                        <p class="mb-0">Компания</p>
+                        <p class="text-muted">Разработка и поддержка веб-приложений с использованием Django, React и PostgreSQL. Внедрение новых функций и оптимизация существующего кода.</p>
+                    </div>
+                    
+                    <div class="timeline-item mb-4 p-4 card shadow-sm">
+                        <h4>Frontend разработчик</h4>
+                        <p class="text-primary mb-2">2019 - 2020</p>
+                        <p class="mb-0">Стартап</p>
+                        <p class="text-muted">Создание отзывчивых и интерактивных пользовательских интерфейсов с использованием HTML, CSS и JavaScript. Работа с React для создания одностраничных приложений.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div data-aos="fade-up">
+            <h3 class="text-center mb-4">Мои навыки</h3>
+            
+            <div class="mb-5">
+                <h4 class="mb-3">Языки программирования</h4>
+                <div class="row g-4">
+                    {% for skill in skills %}
+                    {% if skill.category == 'language' %}
+                    <div class="col-md-6 col-lg-3">
+                        <div class="skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">{{ skill.name }}</h5>
+                                <span>{{ skill.level }}%</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-progress-bar" style="width: {{ skill.level }}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="mb-5">
+                <h4 class="mb-3">Фреймворки и библиотеки</h4>
+                <div class="row g-4">
+                    {% for skill in skills %}
+                    {% if skill.category == 'framework' %}
+                    <div class="col-md-6 col-lg-3">
+                        <div class="skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">{{ skill.name }}</h5>
+                                <span>{{ skill.level }}%</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-progress-bar" style="width: {{ skill.level }}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="mb-3">Инструменты и технологии</h4>
+                <div class="row g-4">
+                    {% for skill in skills %}
+                    {% if skill.category == 'tool' %}
+                    <div class="col-md-6 col-lg-3">
+                        <div class="skill-card">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="mb-0">{{ skill.name }}</h5>
+                                <span>{{ skill.level }}%</span>
+                            </div>
+                            <div class="skill-progress">
+                                <div class="skill-progress-bar" style="width: {{ skill.level }}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

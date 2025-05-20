@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ project.title }} - Портфолио{% endblock %}
+
+{% block meta_tags %}
+<meta name="description" content="{{ project.meta_description|default:project.preview_description }}">
+<meta name="keywords" content="{{ project.meta_keywords|default:project.technologies }}">
+{% endblock %}
+
+{% block og_tags %}
+<meta property="og:title" content="{{ project.meta_title|default:project.title }}">
+<meta property="og:description" content="{{ project.meta_description|default:project.preview_description }}">
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ project.image.url }}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:type" content="website">
+{% endblock %}
+
+{% block content %}
+<section class="py-5">
+    <div class="container">
+        <div class="mb-5">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Главная</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'projects' %}">Проекты</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ project.title }}</li>
+                </ol>
+            </nav>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-8" data-aos="fade-right">
+                <div class="project-detail-image mb-4">
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-fluid">
+                </div>
+                
+                <div class="project-detail-content">
+                    <h1 class="mb-4">{{ project.title }}</h1>
+                    
+                    <div class="mb-4">
+                        <h4>Описание</h4>
+                        <p>{{ project.description|linebreaks }}</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h4>Технологии</h4>
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for tech in project.technologies.split %}
+                            <span class="project-tag">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-3 mt-4">
+                        {% if project.demo_link %}
+                        <a href="{{ project.demo_link }}" target="_blank" class="btn btn-primary">
+                            <i class="fas fa-external-link-alt me-2"></i> Демо
+                        </a>
+                        {% endif %}
+                        
+                        {% if project.code_link %}
+                        <a href="{{ project.code_link }}" target="_blank" class="btn btn-outline-secondary">
+                            <i class="fab fa-github me-2"></i> Код
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4" data-aos="fade-left">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <h4 class="mb-3">Информация о проекте</h4>
+                        
+                        <div class="mb-3">
+                            <h6>Категория:</h6>
+                            <span class="badge bg-primary">{{ project.get_category_display }}</span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <h6>Дата создания:</h6>
+                            <p class="mb-0">{{ project.date_created|date:"d.m.Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                {% if related_projects %}
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h4 class="mb-3">Похожие проекты</h4>
+                        
+                        {% for related in related_projects %}
+                        <div class="mb-3 {% if not forloop.last %}border-bottom pb-3{% endif %}">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <img src="{{ related.image.url }}" alt="{{ related.title }}" class="rounded" width="60" height="60" style="object-fit: cover;">
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="mb-0"><a href="{% url 'project_detail' related.id %}">{{ related.title }}</a></h6>
+                                    <small class="text-muted">{{ related.technologies.split|slice:":2"|join:", " }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
