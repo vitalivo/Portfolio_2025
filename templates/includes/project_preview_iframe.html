@@ -1,0 +1,63 @@
+<!-- Модальное окно с iframe для предпросмотра проекта -->
+<div class="modal fade" id="projectPreviewModal" tabindex="-1" aria-labelledby="projectPreviewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="projectPreviewModalLabel">Предпросмотр проекта</h5>
+                <div class="d-flex align-items-center ms-auto me-2">
+                    <!-- Переключатель размеров экрана -->
+                    <div class="btn-group me-2" role="group" aria-label="Размер экрана">
+                        <button type="button" class="btn btn-sm btn-outline-secondary screen-size-btn" data-size="desktop">
+                            <i class="fas fa-desktop"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary screen-size-btn" data-size="tablet">
+                            <i class="fas fa-tablet-alt"></i>
+                        </button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary screen-size-btn" data-size="mobile">
+                            <i class="fas fa-mobile-alt"></i>
+                        </button>
+                    </div>
+                    <!-- Кнопка открытия в новой вкладке -->
+                    <a href="#" id="openInNewTab" target="_blank" class="btn btn-sm btn-outline-primary me-2">
+                        <i class="fas fa-external-link-alt"></i> Открыть
+                    </a>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-0">
+                <!-- Индикатор загрузки -->
+                <div id="previewLoading" class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Загрузка...</span>
+                    </div>
+                    <p class="mt-2">Загрузка предпросмотра...</p>
+                </div>
+                
+                <!-- Сообщение об ошибке -->
+                <div id="previewError" class="alert alert-danger m-3" style="display: none;">
+                    Произошла ошибка при загрузке предпросмотра.
+                </div>
+                
+                <!-- Контейнер для iframe -->
+                <div id="previewContainer" class="preview-container preview-desktop">
+                    <iframe id="previewFrame" src="about:blank" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="d-flex justify-content-between w-100">
+                    <div>
+                        <span id="previewTitle" class="fw-bold"></span>
+                        <span class="mx-2">|</span>
+                        <span id="previewTechnologies" class="text-muted"></span>
+                    </div>
+                    <div>
+                        <a id="previewCodeLink" href="#" target="_blank" class="btn btn-outline-secondary">
+                            <i class="fab fa-github me-1"></i> Код
+                        </a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}}
 {% block title %}Портфолио - Главная{% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
         <div class="row align-items-center">
             <div class="col-lg-6" data-aos="fade-right">
                 <h1 class="display-4 fw-bold mb-4">Привет, я <span class="text-gradient">Виталий</span></h1>
-                <p class="lead mb-4">Full-Stack разработчик с опытом создания современных веб-приложений с использованием Python, Django и JavaScript.</p>
+                <p class="lead mb-4">Full-Stack разработчик с опытом создания современных веб-приложений с использованием Python, Django, React и JavaScript.</p>
                 <div class="d-flex gap-3">
                     <a href="#projects" class="btn btn-gradient">Мои проекты</a>
                     <a href="#" class="btn btn-outline-primary">Скачать CV</a>
@@ -28,7 +28,7 @@
             </div>
             <div class="col-lg-6" data-aos="fade-left">
                 <div class="position-relative">
-                    <img src="#" alt="Developer" class="img-fluid rounded-3 shadow-lg">
+                    <img src="static/images/IMG_20240525_181743.jpg" alt="Developer" class="img-fluid rounded-3 shadow-lg">
                     <div class="position-absolute top-0 start-0 translate-middle bg-primary text-white p-3 rounded-3 shadow">
                         <i class="fas fa-code fa-2x"></i>
                     </div>
@@ -51,7 +51,7 @@
         
         <div class="row align-items-center">
             <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right">
-                <img src="#" alt="About Me" class="img-fluid rounded-3 shadow">
+                <img src="/static/images/IMG_20250314_090324.jpg" alt="About Me" class="img-fluid rounded-3 shadow">
             </div>
             <div class="col-lg-7" data-aos="fade-left">
                 <h3 class="mb-3">Full-Stack разработчик</h3>
@@ -289,80 +289,28 @@
 </section>
 
 <!-- Секция Контакты -->
+<!-- Замените секцию контактов в home.html на следующий код -->
+
+<!-- Секция Контакты -->
 <section id="contact" class="py-5 bg-light">
     <div class="container">
-        <div class="text-center mb-5" data-aos="fade-up">
+        <div class="text-center mb-4" data-aos="fade-up">
             <h2 class="section-title text-gradient">Связаться со мной</h2>
             <p class="lead">Есть вопросы или предложения? Напишите мне!</p>
         </div>
         
         <div class="row g-4">
             <div class="col-lg-5" data-aos="fade-right">
-                <div class="contact-info-card mb-4">
-                    <div class="contact-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <h4>Email</h4>
-                    <p class="mb-0">email@example.com</p>
-                </div>
-                
-                <div class="contact-info-card mb-4">
-                    <div class="contact-icon">
-                        <i class="fas fa-phone"></i>
-                    </div>
-                    <h4>Телефон</h4>
-                    <p class="mb-0">+7 (123) 456-78-90</p>
-                </div>
-                
-                <div class="contact-info-card">
-                    <div class="contact-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h4>Локация</h4>
-                    <p class="mb-0">Город, Страна</p>
-                </div>
+
+                {% include 'includes/contact_cards.html' %}
             </div>
             
             <div class="col-lg-7" data-aos="fade-left">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body p-4">
-                        <h4 class="mb-4">Отправить сообщение</h4>
-                        <form action="{% url 'contact' %}" method="post">
-                            {% csrf_token %}
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name" class="form-label">Имя</label>
-                                        <input type="text" class="form-control" id="name" name="name" required>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" class="form-control" id="email" name="email" required>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="subject" class="form-label">Тема</label>
-                                        <input type="text" class="form-control" id="subject" name="subject" required>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="message" class="form-label">Сообщение</label>
-                                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <button type="submit" class="btn btn-gradient">Отправить</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                <!-- Включаем форму контактов -->
+                {% include 'includes/contact_form.html' %}
             </div>
         </div>
     </div>
 </section>
+
 {% endblock %}

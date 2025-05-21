@@ -25,6 +25,11 @@ class Project(models.Model):
     )
     demo_link = models.URLField(blank=True, null=True, verbose_name="Ссылка на демо")
     code_link = models.URLField(blank=True, null=True, verbose_name="Ссылка на код")
+    preview_url = models.URLField(
+        blank=True, 
+        verbose_name="URL для предпросмотра",
+        help_text="URL для встроенного предпросмотра проекта (например, GitHub Pages)"
+    )
     featured = models.BooleanField(default=False, verbose_name="Избранный")
     category = models.CharField(max_length=50, choices=[
         ('web', 'Веб-разработка'),

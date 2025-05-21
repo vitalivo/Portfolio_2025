@@ -30,8 +30,12 @@
     <!-- AOS - Animate On Scroll -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
     
+    <!-- Highlight.js для подсветки синтаксиса -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/project-preview.css' %}">
     
     {% block extra_css %}{% endblock %}
 </head>
@@ -111,13 +115,14 @@
                     <h5>Контакты</h5>
                     <ul class="list-unstyled">
                         <li><i class="fas fa-envelope me-2"></i> email@example.com</li>
-                        <li><i class="fas fa-phone me-2"></i> +7 (123) 456-78-90</li>
-                        <li class="mt-3">
-                            <a href="https://github.com/vitalivo" target="_blank" class="text-white me-3"><i class="fab fa-github fa-lg"></i></a>
-                            <a href="#" target="_blank" class="text-white me-3"><i class="fab fa-linkedin fa-lg"></i></a>
-                            <a href="#" target="_blank" class="text-white me-3"><i class="fab fa-telegram fa-lg"></i></a>
-                        </li>
+                        <li><i class="fas fa-phone me-2"></i> +1 (123) 456-7890</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> Город, Страна</li>
                     </ul>
+                    <div class="social-icons mt-3">
+                        <a href="#" class="text-white me-3"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    </div>
                 </div>
             </div>
             <div class="text-center mt-4">
@@ -126,7 +131,7 @@
         </div>
     </footer>
 
-    <!-- Модальное окно предпросмотра проекта -->
+    <!-- Модальное окно предпросмотра проекта (стандартное) -->
     <div class="modal fade" id="projectPreviewModal" tabindex="-1" aria-labelledby="projectPreviewModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -163,14 +168,86 @@
         </div>
     </div>
 
+    <!-- Модальное окно предпросмотра проекта с iframe -->
+    <div class="modal fade" id="projectPreviewIframeModal" tabindex="-1" aria-labelledby="projectPreviewIframeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-fullscreen-lg-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="projectPreviewIframeModalLabel">Предпросмотр проекта</h5>
+                    <div class="d-flex align-items-center ms-auto me-2">
+                        <!-- Переключатель размеров экрана -->
+                        <div class="btn-group me-2" role="group" aria-label="Размер экрана">
+                            <button type="button" class="btn btn-sm btn-outline-secondary screen-size-btn active" data-size="desktop">
+                                <i class="fas fa-desktop"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary screen-size-btn" data-size="tablet">
+                                <i class="fas fa-tablet-alt"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary screen-size-btn" data-size="mobile">
+                                <i class="fas fa-mobile-alt"></i>
+                            </button>
+                        </div>
+                        <!-- Кнопка открытия в новой вкладке -->
+                        <a href="#" id="openInNewTab" target="_blank" class="btn btn-sm btn-outline-primary me-2">
+                            <i class="fas fa-external-link-alt"></i> Открыть
+                        </a>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <!-- Индикатор загрузки -->
+                    <div id="previewLoading" class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Загрузка...</span>
+                        </div>
+                        <p class="mt-2">Загрузка предпросмотра...</p>
+                    </div>
+                    
+                    <!-- Сообщение об ошибке -->
+                    <div id="previewError" class="alert alert-danger m-3" style="display: none;">
+                        Произошла ошибка при загрузке предпросмотра.
+                    </div>
+                    
+                    <!-- Контейнер для iframe -->
+                    <div id="previewContainer" class="preview-container preview-desktop">
+                        <iframe id="previewFrame" src="about:blank" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="d-flex justify-content-between w-100">
+                        <div>
+                            <span id="previewIframeTitle" class="fw-bold"></span>
+                            <span class="mx-2">|</span>
+                            <span id="previewIframeTechnologies" class="text-muted"></span>
+                        </div>
+                        <div>
+                            <a id="previewIframeCodeLink" href="#" target="_blank" class="btn btn-outline-secondary">
+                                <i class="fab fa-github me-1"></i> Код
+                            </a>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- AOS JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     
+    <!-- Highlight.js для подсветки синтаксиса -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    
+    <!-- Marked.js для рендеринга Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
     <!-- Custom JS -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/project-preview.js' %}"></script>
+    <script src="{% static 'js/project-preview-iframe.js' %}"></script>
     
     <script>
         // Инициализация AOS
@@ -178,6 +255,13 @@
             duration: 800,
             easing: 'ease-in-out',
             once: true
+        });
+        
+        // Инициализация подсветки синтаксиса
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+            });
         });
     </script>
     
